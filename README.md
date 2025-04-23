@@ -1,4 +1,3 @@
-````markdown
 # SmartCoffeeMachine – Frontend
 
 This is the frontend interface for controlling a connected coffee machine. Built using React, TypeScript, and Vite, it communicates with a REST API backend.
@@ -26,6 +25,7 @@ git clone https://github.com/<your-username>/smartcoffeemachine-frontend.git
 cd smartcoffeemachine-frontend
 npm install
 ```
+
 ````
 
 ### Start in Development Mode
@@ -116,3 +116,4 @@ MIT – see [LICENSE](./LICENSE) for details.
 
 Let me know if you also want a `package.json` template or a `.env.example` file.
 ```
+````
