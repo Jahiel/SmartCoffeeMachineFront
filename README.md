@@ -108,4 +108,4 @@ src/
 
 ## 🧩 License
 
-MIT – see [LICENSE](LICENSE.TXT) for details.
+MIT – see [LICENSE](LICENCE.TXT) for details.
