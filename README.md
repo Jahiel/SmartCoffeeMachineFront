@@ -1,54 +1,118 @@
-# React + TypeScript + Vite
+````markdown
+# SmartCoffeeMachine – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend interface for controlling a connected coffee machine. Built using React, TypeScript, and Vite, it communicates with a REST API backend.
 
-Currently, two official plugins are available:
+## 🧱 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** with **TypeScript**
+- **Vite** for fast build and development
+- **Axios** for HTTP requests
+- **ESLint** with TypeScript and React support
+- **TailwindCSS** (optional, if included in the project)
+- **React Router** (if navigation is needed)
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- Node.js (v18+ recommended)
+- npm or yarn
+
+### Installation
+
+```bash
+git clone https://github.com/<your-username>/smartcoffeemachine-frontend.git
+cd smartcoffeemachine-frontend
+npm install
+```
+````
+
+### Start in Development Mode
+
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The app will be available at `http://localhost:5173` by default.
+
+### API Configuration
+
+This frontend communicates with the SmartCoffeeMachine API. You can configure the API URL using a `.env` file:
+
+```env
+VITE_API_URL=WIP
+```
+
+## 📦 Production Build
+
+```bash
+npm run build
+```
+
+The compiled assets will be available in the `dist/` folder.
+
+## ✅ Linting
+
+This project includes a basic ESLint setup that can be extended for production use:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+export default tseslint.config({
+  extends: [
+    ...tseslint.configs.recommendedTypeChecked,
+    // or for stricter rules:
+    // ...tseslint.configs.strictTypeChecked,
+    // and for style rules:
+    // ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    parserOptions: {
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+});
+```
+
+To further enhance linting, you can use:
+
+- [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x)
+- [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom)
+
+```js
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default tseslint.config({
   plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
+    "react-x": reactX,
+    "react-dom": reactDom,
   },
   rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
+    ...reactX.configs["recommended-typescript"].rules,
     ...reactDom.configs.recommended.rules,
   },
-})
+});
+```
+
+## 📁 Project Structure
+
+```
+src/
+├── api/             # Axios logic for API calls
+├── components/      # Reusable UI components
+├── pages/           # Application views
+├── assets/          # Static files (images, fonts, etc.)
+├── App.tsx          # App root component
+├── main.tsx         # Entry point
+```
+
+## 🧩 License
+
+MIT – see [LICENSE](./LICENSE) for details.
+
+```
+
+Let me know if you also want a `package.json` template or a `.env.example` file.
 ```
