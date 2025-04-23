@@ -26,8 +26,6 @@ cd smartcoffeemachine-frontend
 npm install
 ```
 
-````
-
 ### Start in Development Mode
 
 ```bash
@@ -111,9 +109,3 @@ src/
 ## 🧩 License
 
 MIT – see [LICENSE](./LICENSE) for details.
-
-```
-
-Let me know if you also want a `package.json` template or a `.env.example` file.
-```
-````
