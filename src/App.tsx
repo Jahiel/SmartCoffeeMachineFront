@@ -1,29 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Loader from "./Components/Loader/Loader";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [isReady, setIsReady] = useState(false);
 
-  return (
-    <>
-      <div>
-        <Loader></Loader>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+  useEffect(() => {
+    const load = async () => {
+      await sleep(10000);
+      setIsReady(true);
+    };
+
+    load();
+  }, [isReady]);
+
+  if (!isReady) {
+    return (
+      <>
+        <div>
+          <Loader></Loader>
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div>Hello</div>
+      </>
+    );
+  }
 }
 
 export default App;
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
