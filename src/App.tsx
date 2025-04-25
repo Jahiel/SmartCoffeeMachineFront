@@ -9,7 +9,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   //Do my components needs to refresh ? State is share to all childs
   const [needRefresh, setNeedRefresh] = useState(false);
-  const [state, setState] = useState({});
+  //get the state of the machine, on/off - alerts - state...
+  const [state, setState] = useState({ isOn: false });
 
   const loadState = async () => {
     try {
