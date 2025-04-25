@@ -12,7 +12,7 @@ export default function WaterLevel(props: WaterLevelProps) {
   const startColor = blue[400]; // cornflowerblue
   const endColor = blue[400];
   const [value, setValue] = useState(100);
-  const radius = 100;
+  const radius = 200;
   const interpolate = interpolateRgb(startColor, endColor);
   const fillColor = interpolate(value / 100);
   const gradientStops = [
