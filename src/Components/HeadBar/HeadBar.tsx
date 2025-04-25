@@ -1,12 +1,24 @@
-import React, { Component } from "react";
+import { useState } from "react";
 import Switch from "../Switch/Switch";
+import "./HeadBar.scss";
+import Awake from "../Awake/Awake";
+interface HeadBarProps {
+  className?: string;
+  state?: { isOn: boolean };
+}
 
-export default class HeadBar extends Component {
-  render() {
-    return (
-      <div>
-        <Switch></Switch>
+export default function HeadBar(props: HeadBarProps) {
+  const [isOn, setIsOn] = useState(props.state?.isOn ?? false);
+  const { className } = props;
+  return (
+    <div className={className}>
+      <div className="head-title">
+        <h1>Coffee Machine DashBoard</h1>
       </div>
-    );
-  }
+      <div>
+        <Awake isOn={isOn}></Awake>
+      </div>
+      <Switch state={isOn} onChange={setIsOn}></Switch>
+    </div>
+  );
 }
