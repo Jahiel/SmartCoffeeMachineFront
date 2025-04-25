@@ -10,14 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/material": "^7.0.2",
     "axios": "^1.9.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-liquid-gauge": "^1.2.4",
     "sass": "^1.86.3",
     "styled-components": "^6.1.17"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
+    "@types/d3-interpolate": "^3.0.4",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
