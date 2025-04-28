@@ -2,6 +2,14 @@
 
 This is the frontend interface for controlling a connected coffee machine. Built using React, TypeScript, and Vite, it communicates with a REST API backend.
 
+## 🔎 Preview
+
+### No alert mode
+
+[Front page with no alert](./src/assets/readme_front_page_no_alert.png)
+
+### Alert mode
+
 ## 🧱 Tech Stack
 
 - **React** with **TypeScript**

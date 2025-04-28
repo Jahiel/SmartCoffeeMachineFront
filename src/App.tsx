@@ -6,13 +6,12 @@ import axios from "axios";
 import WaterLevel from "./Components/WaterLevel/WaterLevel";
 import Status from "./Components/Status/Status";
 import Stats from "./Components/Stats/Stats";
+import MakeCoffee from "./Pages/Modals/MakeCoffee/MakeCoffee";
 
 function App() {
   //First state for loading land page
   const [isLoading, setIsLoading] = useState(true);
-  //Do my components needs to refresh ? State is share to all childs
-  // const [needRefresh, setNeedRefresh] = useState(false);
-  //get the state of the machine, on/off - alerts - state...
+  const [isOpen, setIsOpen] = useState(false);
   const [state, setState] = useState({
     isOn: false,
     waterLevelState: 0,
@@ -20,6 +19,7 @@ function App() {
     waterTrayState: 0,
     wasteCoffeeState: 0,
     beanFeedState: 0,
+    isInAlert: true,
   });
 
   const loadState = async () => {
@@ -49,7 +49,8 @@ function App() {
     }, 5000);
 
     return () => clearInterval(intervalId);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) {
     return (
@@ -61,23 +62,37 @@ function App() {
     );
   } else {
     return (
-      <div className="main-container">
-        <HeadBar className="header-bar" state={state}></HeadBar>
-        <div className="main-body">
-          <Status
-            isOn={state.isOn}
-            isMakingCoffee={state.isMakingCoffee}
-            waterLevelState={state.waterLevelState}
-            waterTrayState={state.waterTrayState}
-            wasteCoffeeState={state.wasteCoffeeState}
-            beanFeedState={state.beanFeedState}
-          />
-          <WaterLevel value={state.waterLevelState}></WaterLevel>
+      <>
+        <MakeCoffee
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          isMakingCoffee={state.isMakingCoffee}
+          isInAlert={state.isInAlert}
+          isOn={state.isOn}
+          // isInAlertMode={false}
+        ></MakeCoffee>
+        <div className="main-container">
+          <HeadBar
+            className="header-bar"
+            state={state}
+            setIsOpen={setIsOpen}
+          ></HeadBar>
+          <div className="main-body">
+            <Status
+              isOn={state.isOn}
+              isMakingCoffee={state.isMakingCoffee}
+              waterLevelState={state.waterLevelState}
+              waterTrayState={state.waterTrayState}
+              wasteCoffeeState={state.wasteCoffeeState}
+              beanFeedState={state.beanFeedState}
+            />
+            <WaterLevel value={state.waterLevelState}></WaterLevel>
+          </div>
+          <div className="main-charts">
+            <Stats></Stats>
+          </div>
         </div>
-        <div className="main-charts">
-          <Stats></Stats>
-        </div>
-      </div>
+      </>
     );
   }
 }

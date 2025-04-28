@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import Switch from "../Switch/Switch";
 import "./HeadBar.scss";
 import Awake from "../Awake/Awake";
+import Alerts from "../Alerts/Alerts";
 interface HeadBarProps {
   className?: string;
-  state?: { isOn: boolean };
+  state?: { isOn: boolean; isInAlert: boolean };
+  setIsOpen: (isOpen: boolean) => void;
 }
 
 export default function HeadBar(props: HeadBarProps) {
@@ -24,6 +26,8 @@ export default function HeadBar(props: HeadBarProps) {
       <div>
         <Awake isOn={isOn}></Awake>
       </div>
+      <Alerts isInAlertMode={props.state?.isInAlert}></Alerts>
+      <button onClick={() => props.setIsOpen(true)}>MakeCoffee</button>
       <Switch state={isOn} onChange={setIsOn}></Switch>
     </div>
   );

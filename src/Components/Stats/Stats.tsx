@@ -28,28 +28,35 @@ interface DataItem {
 export default function CoffeeStats() {
   const [dailyData, setDailyData] = useState<CoffeeStatDaily[]>([]);
   const [weeklyData, setWeeklyData] = useState<CoffeeStatWeekly[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("https://localhost:44323/api/v1/CoffeeMachine/coffees/daily")
-      .then((response) => {
-        setDailyData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error when loading daily data:", error);
-      });
+    const fetchData = async () => {
+      try {
+        const dailyResponse = await axios.get(
+          "https://localhost:44323/api/v1/CoffeeMachine/coffees/daily"
+        );
+        setDailyData(dailyResponse.data);
 
-    axios
-      .get("https://localhost:44323/api/v1/CoffeeMachine/coffees/weekly")
-      .then((response) => {
-        setWeeklyData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error when loading weekly data:", error);
-      });
+        const weeklyResponse = await axios.get(
+          "https://localhost:44323/api/v1/CoffeeMachine/coffees/weekly"
+        );
+        setWeeklyData(weeklyResponse.data);
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Error when loading data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  ///Daily
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   const dataChartDaily: DataItem[] = [];
   dailyData.forEach((dailyDataItem) => {
     dataChartDaily.push({
@@ -59,29 +66,19 @@ export default function CoffeeStats() {
   });
 
   if (dataChartDaily.length < 7) {
-    if (
-      dataChartDaily[dataChartDaily.length - 1] &&
-      Object.prototype.hasOwnProperty.call(
-        dataChartDaily[dataChartDaily.length - 1],
-        "name"
-      )
-    ) {
-      const lastDate = new Date(dailyData[dailyData.length - 1].date);
-      const neededDays = 7 - dataChartDaily.length;
-      console.log(neededDays);
-      for (let index = 1; index <= neededDays; index++) {
-        console.log("on ajoute + : " + index);
-        const nextDate = new Date(lastDate);
-        nextDate.setDate(lastDate.getDate() + index);
-        dataChartDaily.push({
-          name: nextDate.toLocaleDateString(),
-          coffees: 0,
-        });
-      }
+    const lastDate = new Date(dailyData[dailyData.length - 1].date);
+    const neededDays = 7 - dataChartDaily.length;
+    for (let index = 1; index <= neededDays; index++) {
+      const nextDate = new Date(lastDate);
+      nextDate.setDate(lastDate.getDate() + index);
+      dataChartDaily.push({
+        name: nextDate.toLocaleDateString(),
+        coffees: 0,
+      });
     }
   }
 
-  ///Weekly
+  // Transformation des données weekly
   const dataChartWeekly: DataItem[] = [];
   weeklyData.forEach((weeklyDataItem) => {
     dataChartWeekly.push({
@@ -91,43 +88,35 @@ export default function CoffeeStats() {
   });
 
   if (dataChartWeekly.length < 7) {
-    if (
-      dataChartWeekly[dataChartWeekly.length - 1] &&
-      Object.prototype.hasOwnProperty.call(
-        dataChartWeekly[dataChartWeekly.length - 1],
-        "name"
-      )
-    ) {
-      const lastDate = weeklyData[weeklyData.length - 1].week;
-      const neededWeeks = 7 - dataChartWeekly.length;
-      console.log(neededWeeks);
-      for (let index = 1; index <= neededWeeks; index++) {
-        console.log("on ajoute + : " + index);
-        dataChartWeekly.push({
-          name: lastDate + index,
-          coffees: 0,
-        });
-      }
+    const lastDate = weeklyData[weeklyData.length - 1].week;
+    const neededWeeks = 7 - dataChartWeekly.length;
+    for (let index = 1; index <= neededWeeks; index++) {
+      dataChartWeekly.push({
+        name: lastDate + index,
+        coffees: 0,
+      });
     }
   }
+
   return (
     <>
-      Daily
+      <h2>Daily Stats</h2>
       <ResponsiveContainer width="50%" height="100%">
         <BarChart data={dataChartDaily}>
-          <Label value="Weekly Stats of coffees made" position="bottom" />
-          <XAxis dataKey="name"></XAxis>
+          <XAxis dataKey="name" />
           <Tooltip />
           <Bar dataKey="coffees" fill="#8884d8" />
+          <Label value="Daily Stats of coffees made" position="bottom" />
         </BarChart>
       </ResponsiveContainer>
-      Weekly
+
+      <h2>Weekly Stats</h2>
       <ResponsiveContainer width="50%" height="100%">
         <BarChart data={dataChartWeekly}>
-          <Label value="Weekly Stats of coffees made" position="bottom" />
-          <XAxis dataKey="name"></XAxis>
+          <XAxis dataKey="name" />
           <Tooltip />
           <Bar dataKey="coffees" fill="#8884d8" />
+          <Label value="Weekly Stats of coffees made" position="bottom" />
         </BarChart>
       </ResponsiveContainer>
     </>
