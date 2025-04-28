@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Switch.scss";
 import axios from "axios";
 
@@ -9,9 +9,11 @@ interface SwitchProps {
 
 export default function Switch(props: SwitchProps) {
   const [isOn, setIsOn] = useState(props.state);
+  const [previousState, setPreviousState] = useState(props.state);
 
   useEffect(() => {
     setIsOn(props.state);
+    setPreviousState(props.state);
   }, [props.state]);
 
   const toggle = async () => {
@@ -24,10 +26,18 @@ export default function Switch(props: SwitchProps) {
         ? "https://localhost:44323/api/v1/CoffeeMachine/turn-on"
         : "https://localhost:44323/api/v1/CoffeeMachine/turn-off";
 
-      await axios.post(url); // Envoi de la requête POST
-      console.log("Machine state updated successfully.");
+      const response = await axios.post(url);
+
+      if (response.status === 200) {
+        console.log("Machine state updated successfully.");
+      } else {
+        throw new Error("Failed to update machine state");
+      }
     } catch (error) {
       console.error("Error updating machine state:", error);
+      // In case of error, revert the switch state
+      setIsOn(previousState);
+      props.onChange(previousState);
     }
   };
 

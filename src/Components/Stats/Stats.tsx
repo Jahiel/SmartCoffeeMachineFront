@@ -46,7 +46,6 @@ export default function CoffeeStats() {
         setLoading(false);
       } catch (error) {
         console.error("Error when loading data:", error);
-        setLoading(false);
       }
     };
 
@@ -78,7 +77,6 @@ export default function CoffeeStats() {
     }
   }
 
-  // Transformation des données weekly
   const dataChartWeekly: DataItem[] = [];
   weeklyData.forEach((weeklyDataItem) => {
     dataChartWeekly.push({

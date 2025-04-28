@@ -37,7 +37,7 @@ This is the frontend interface for controlling a connected coffee machine. Built
 ### Installation
 
 ```bash
-git clone https://github.com/<your-username>/smartcoffeemachine-frontend.git
+git clone https://github.com/Jahiel/smartcoffeemachine-frontend.git
 cd smartcoffeemachine-frontend
 npm install
 ```
