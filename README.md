@@ -4,11 +4,19 @@ This is the frontend interface for controlling a connected coffee machine. Built
 
 ## 🔎 Preview
 
+### Video presentation
+
 ### No alert mode
 
-![alt text](./src/assets/readme_front_page_no_alert.png)
+![No alert mode landing page](./src/assets/readme_front_page_no_alert.png)
 
 ### Alert mode
+
+![Alert mode landing page](./src/assets/readme_front_page.png)
+
+### Make coffee
+
+![Make coffee modal](./src/assets/makeCoffee.png)
 
 ## 🧱 Tech Stack
 
