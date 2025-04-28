@@ -6,7 +6,7 @@ This is the frontend interface for controlling a connected coffee machine. Built
 
 ### No alert mode
 
-[Front page with no alert](./src/assets/readme_front_page_no_alert.png)
+[alt text](./src/assets/readme_front_page_no_alert.png)
 
 ### Alert mode
 
