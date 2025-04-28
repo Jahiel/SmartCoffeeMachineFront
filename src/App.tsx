@@ -5,6 +5,7 @@ import HeadBar from "./Components/HeadBar/HeadBar";
 import axios from "axios";
 import WaterLevel from "./Components/WaterLevel/WaterLevel";
 import Status from "./Components/Status/Status";
+import Stats from "./Components/Stats/Stats";
 
 function App() {
   //First state for loading land page
@@ -28,8 +29,7 @@ function App() {
       );
       setState(reponse.data);
       console.log(reponse.data);
-      console.log("oui");
-      await sleep(10000);
+      await sleep(8000);
       setIsLoading(false);
     } catch (error) {
       console.error("There was an error", error);
@@ -43,7 +43,13 @@ function App() {
     if (isLoading) {
       loadState();
     }
-  }, []);
+
+    const intervalId = setInterval(() => {
+      loadState();
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  });
 
   if (isLoading) {
     return (
@@ -67,6 +73,9 @@ function App() {
             beanFeedState={state.beanFeedState}
           />
           <WaterLevel value={state.waterLevelState}></WaterLevel>
+        </div>
+        <div className="main-charts">
+          <Stats></Stats>
         </div>
       </div>
     );

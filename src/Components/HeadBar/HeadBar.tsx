@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Switch from "../Switch/Switch";
 import "./HeadBar.scss";
 import Awake from "../Awake/Awake";
@@ -10,6 +10,12 @@ interface HeadBarProps {
 export default function HeadBar(props: HeadBarProps) {
   const [isOn, setIsOn] = useState(props.state?.isOn ?? false);
   const { className } = props;
+
+  useEffect(() => {
+    if (props.state?.isOn !== undefined) {
+      setIsOn(props.state.isOn);
+    }
+  }, [props.state?.isOn]);
   return (
     <div className={className}>
       <div className="head-title">

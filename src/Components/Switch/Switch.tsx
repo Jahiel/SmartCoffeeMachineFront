@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Switch.scss";
 
 interface SwitchProps {
@@ -8,6 +8,10 @@ interface SwitchProps {
 
 const Switch: React.FC<SwitchProps> = (props) => {
   const [isOn, setIsOn] = useState(props.state);
+
+  useEffect(() => {
+    setIsOn(props.state);
+  }, [props.state]);
 
   const toggle = () => {
     const newState = !isOn;
