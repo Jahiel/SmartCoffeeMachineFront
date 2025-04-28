@@ -1,29 +1,104 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Loader from "./Components/Loader/Loader";
+import HeadBar from "./Components/HeadBar/HeadBar";
+import axios from "axios";
+import WaterLevel from "./Components/WaterLevel/WaterLevel";
+import Status from "./Components/Status/Status";
+import Stats from "./Components/Stats/Stats";
+import MakeCoffee from "./Pages/Modals/MakeCoffee/MakeCoffee";
 
 function App() {
-  const [count, setCount] = useState(0);
+  //First state for loading land page
+  const [isLoading, setIsLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [state, setState] = useState({
+    isOn: false,
+    waterLevelState: 0,
+    isMakingCoffee: false,
+    waterTrayState: 0,
+    wasteCoffeeState: 0,
+    beanFeedState: 0,
+    isInAlert: true,
+  });
 
-  return (
-    <>
-      <div>
-        <Loader></Loader>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+  const loadState = async () => {
+    try {
+      const reponse = await axios.get(
+        "https://localhost:44323/api/v1/CoffeeMachine/state"
+      );
+      setState(reponse.data);
+      console.log(reponse.data);
+      await sleep(8000);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("There was an error", error);
+      setIsLoading(false);
+    } finally {
+      //
+    }
+  };
+
+  useEffect(() => {
+    if (isLoading) {
+      loadState();
+    }
+
+    const intervalId = setInterval(() => {
+      loadState();
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (isLoading) {
+    return (
+      <>
+        <div className="main-container">
+          <Loader></Loader>
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <MakeCoffee
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          isMakingCoffee={state.isMakingCoffee}
+          isInAlert={state.isInAlert}
+          isOn={state.isOn}
+          // isInAlertMode={false}
+        ></MakeCoffee>
+        <div className="main-container">
+          <HeadBar
+            className="header-bar"
+            state={state}
+            setIsOpen={setIsOpen}
+          ></HeadBar>
+          <div className="main-body">
+            <Status
+              isOn={state.isOn}
+              isMakingCoffee={state.isMakingCoffee}
+              waterLevelState={state.waterLevelState}
+              waterTrayState={state.waterTrayState}
+              wasteCoffeeState={state.wasteCoffeeState}
+              beanFeedState={state.beanFeedState}
+            />
+            <WaterLevel value={state.waterLevelState}></WaterLevel>
+          </div>
+          <div className="main-charts">
+            <Stats></Stats>
+          </div>
+        </div>
+      </>
+    );
+  }
 }
 
 export default App;
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

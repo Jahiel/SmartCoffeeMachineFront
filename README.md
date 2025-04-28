@@ -2,6 +2,22 @@
 
 This is the frontend interface for controlling a connected coffee machine. Built using React, TypeScript, and Vite, it communicates with a REST API backend.
 
+## 🔎 Preview
+
+### Video presentation
+
+### No alert mode
+
+![No alert mode landing page](./src/assets/readme_front_page_no_alert.png)
+
+### Alert mode
+
+![Alert mode landing page](./src/assets/readme_front_page.png)
+
+### Make coffee
+
+![Make coffee modal](./src/assets/makeCoffee.png)
+
 ## 🧱 Tech Stack
 
 - **React** with **TypeScript**
@@ -21,7 +37,7 @@ This is the frontend interface for controlling a connected coffee machine. Built
 ### Installation
 
 ```bash
-git clone https://github.com/<your-username>/smartcoffeemachine-frontend.git
+git clone https://github.com/Jahiel/smartcoffeemachine-frontend.git
 cd smartcoffeemachine-frontend
 npm install
 ```
