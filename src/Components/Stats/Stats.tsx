@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { BarChart, Bar, ResponsiveContainer, XAxis, Tooltip } from "recharts";
+import {
+  BarChart,
+  Bar,
+  ResponsiveContainer,
+  XAxis,
+  Tooltip,
+  Label,
+} from "recharts";
 import axios from "axios";
 
 interface CoffeeStatDaily {
@@ -105,16 +112,20 @@ export default function CoffeeStats() {
   }
   return (
     <>
+      Daily
       <ResponsiveContainer width="50%" height="100%">
-        <BarChart width={150} height={40} data={dataChartDaily}>
-          <XAxis dataKey="name" />
+        <BarChart data={dataChartDaily}>
+          <Label value="Weekly Stats of coffees made" position="bottom" />
+          <XAxis dataKey="name"></XAxis>
           <Tooltip />
           <Bar dataKey="coffees" fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
+      Weekly
       <ResponsiveContainer width="50%" height="100%">
-        <BarChart width={150} height={40} data={dataChartWeekly}>
-          <XAxis dataKey="name" />
+        <BarChart data={dataChartWeekly}>
+          <Label value="Weekly Stats of coffees made" position="bottom" />
+          <XAxis dataKey="name"></XAxis>
           <Tooltip />
           <Bar dataKey="coffees" fill="#8884d8" />
         </BarChart>
