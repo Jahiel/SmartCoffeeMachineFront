@@ -24,8 +24,6 @@ This is the frontend interface for controlling a connected coffee machine. Built
 - **Vite** for fast build and development
 - **Axios** for HTTP requests
 - **ESLint** with TypeScript and React support
-- **TailwindCSS** (optional, if included in the project)
-- **React Router** (if navigation is needed)
 
 ## 🚀 Getting Started
 
@@ -37,8 +35,8 @@ This is the frontend interface for controlling a connected coffee machine. Built
 ### Installation
 
 ```bash
-git clone https://github.com/Jahiel/smartcoffeemachine-frontend.git
-cd smartcoffeemachine-frontend
+git clone https://github.com/Jahiel/SmartCoffeeMachineFront
+cd SmartCoffeeMachineFront
 npm install
 ```
 
@@ -52,7 +50,7 @@ The app will be available at `http://localhost:5173` by default.
 
 ### API Configuration
 
-This frontend communicates with the SmartCoffeeMachine API. You can configure the API URL using a `.env` file:
+This frontend communicates with the SmartCoffeeMachine (available at [SmartCoffeeMachine](https://github.com/Jahiel/SmartCoffeeMachine)) API. You can configure the API URL using a `.env` file:
 
 ```env
 VITE_API_URL=WIP
@@ -114,10 +112,11 @@ export default tseslint.config({
 
 ```
 src/
-├── api/             # Axios logic for API calls
+├── assets/          # Static files (images, fonts, etc.)
 ├── components/      # Reusable UI components
 ├── pages/           # Application views
-├── assets/          # Static files (images, fonts, etc.)
+  ├── Modals/           # Modals views
+├── types/           # Types for JS -> TS module
 ├── App.tsx          # App root component
 ├── main.tsx         # Entry point
 ```

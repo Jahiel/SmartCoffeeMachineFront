@@ -1,6 +1,7 @@
 import Modal from "react-modal";
 import "./MakeCoffee.scss";
 import { useEffect, useState } from "react";
+import axios from "axios";
 interface MakeCoffeeProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -9,6 +10,7 @@ interface MakeCoffeeProps {
   isOn: boolean;
 }
 
+/// Tried new way of styling for personnal purpose
 const customStyles = {
   content: {
     color: "black",
@@ -21,6 +23,10 @@ const customStyles = {
   },
 };
 
+/*
+Possible evolution : handle error and state in order to show information to the user (currently making coffee, internal error....)
+*/
+
 export default function MakeCoffee({
   isInAlert,
   isMakingCoffee,
@@ -29,15 +35,27 @@ export default function MakeCoffee({
   setIsOpen,
 }: MakeCoffeeProps) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [shotCount, setShotCount] = useState(1);
+  const [withMilk, setWithMilk] = useState(true);
 
   useEffect(() => {
     setIsButtonDisabled(isInAlert || isMakingCoffee || !isOn);
   }, [isInAlert, isMakingCoffee, isOn]);
 
+  const handleMakeCoffe = () => {
+    axios
+      .post("https://localhost:44323/api/v1/CoffeeMachine/coffee", {
+        numExpressoShots: shotCount,
+        addMilk: withMilk,
+      })
+      .catch((error) => {
+        console.error("Failed to send coffee request : ", error);
+      });
+    setIsOpen(false);
+  };
   return (
     <Modal
       isOpen={isOpen}
-      //   onAfterOpen={afterOpenModal}
       onRequestClose={() => setIsOpen(false)}
       style={customStyles}
       contentLabel="Make your own coffee"
@@ -45,17 +63,28 @@ export default function MakeCoffee({
       <h2>Make your own coffee from Dashboard</h2>
       <div className="modal-shot-expresso">
         <div>How many shot of coffee do you want ?</div>
-        <input type="range" min="1" max="10" step="1" />
+        <input
+          type="range"
+          min="1"
+          max="10"
+          step="1"
+          value={shotCount}
+          onChange={(e) => setShotCount(parseInt(e.target.value))}
+        />
       </div>
       <div className="modal-milk">
         <div>Do you want milk in your coffee ?</div>
         <div className="checkbox-wrapper-41">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={withMilk}
+            onChange={(e) => setWithMilk(e.target.checked)}
+          />
         </div>
       </div>
       <button
         onClick={() => {
-          setIsOpen(false);
+          handleMakeCoffe();
         }}
         disabled={isButtonDisabled}
       >

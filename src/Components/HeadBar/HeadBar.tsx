@@ -3,9 +3,13 @@ import Switch from "../Switch/Switch";
 import "./HeadBar.scss";
 import Awake from "../Awake/Awake";
 import Alerts from "../Alerts/Alerts";
+
 interface HeadBarProps {
+  //tried to set a className as props but never removed it, possible evolution is to set everything in the /HeadBar.scss
   className?: string;
+  //State of the machine got with API call (or default values set in App.tsx)
   state?: { isOn: boolean; isInAlert: boolean };
+  //Close the modal when clicked on
   setIsOpen: (isOpen: boolean) => void;
 }
 

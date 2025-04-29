@@ -9,22 +9,36 @@ import {
 } from "recharts";
 import axios from "axios";
 
+///Interface for Daily stats
 interface CoffeeStatDaily {
+  ///Date
   date: string;
+  ///Number of coffee made this day
   coffeesMade: number;
 }
 
+///Interface for weekly stats
 interface CoffeeStatWeekly {
+  ///Week number
   week: string;
+  ///Coffee made this week
   coffeesMade: number;
 }
 
+///Interface made for charts components
 interface DataItem {
+  ///Name of the bar in the chart
   name: string;
+  ///Coffee made on this bar (weekly or daily)
   coffees: number;
 }
 
-//TODO Must search for scalability philosophy, here the more data we have, the more it is harder to read
+/*
+I know it was asked daily and hourly but I went for Daily and Weekly without looking, sorry :), will still work if we set the route on hourly and weekly (minor changes)
+Evolution : Scalability is asked in requirements, I haven't got enougth time to set a proper scalability in this component,
+A good way of handle the scalability is to set arrow on each charts and get the stats with the page (or date value maybe?) number we want
+Example : load the 1 page from the api and on each click on the arrow load a second, third... 
+*/
 export default function CoffeeStats() {
   const [dailyData, setDailyData] = useState<CoffeeStatDaily[]>([]);
   const [weeklyData, setWeeklyData] = useState<CoffeeStatWeekly[]>([]);
@@ -52,6 +66,7 @@ export default function CoffeeStats() {
     fetchData();
   }, []);
 
+  ///Wait for api to answer, if no answer is get we stay in loading mode
   if (loading) {
     return <div>Loading...</div>;
   }

@@ -2,7 +2,9 @@
 import { Component } from "react";
 
 import "./Loader.scss";
-
+/*
+A simple loader component to show when the land page is loading
+*/
 export default class Loader extends Component {
   render() {
     return (

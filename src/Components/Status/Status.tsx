@@ -5,6 +5,7 @@ import coffeeBean from "../../assets/icons8-grains-de-café-50.png";
 import coffeeMaking from "../../assets/icons8-chocolat-chaud-50.png";
 import { useEffect, useState } from "react";
 
+///Interface of coffee machine state
 interface StatusProps {
   isOn: boolean;
   isMakingCoffee: boolean;
@@ -20,10 +21,8 @@ export default function Status(props: StatusProps) {
   const [beanFeed, setBeanFeed] = useState("N/A");
   const [coffeeMakingStatus, setCoffeeMakingStatus] = useState("N/A");
 
-  //TODO Handle all level of state and not only 2
   //TODO Maybe there is a better way of doing that ?
   useEffect(() => {
-    console.log(props);
     switch (true) {
       case props.waterTrayState <= 1:
         setWaterTray("Full");
@@ -48,7 +47,6 @@ export default function Status(props: StatusProps) {
         break;
     }
 
-    // Switch for BeanFeedState
     switch (true) {
       case props.beanFeedState <= 1:
         setBeanFeed("Low");
@@ -63,6 +61,7 @@ export default function Status(props: StatusProps) {
 
     setCoffeeMakingStatus(props.isMakingCoffee ? "Yes" : "No");
   }, [props]);
+
   return (
     <div className="card">
       <div className="item item--1">

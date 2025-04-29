@@ -8,6 +8,13 @@ import Status from "./Components/Status/Status";
 import Stats from "./Components/Stats/Stats";
 import MakeCoffee from "./Pages/Modals/MakeCoffee/MakeCoffee";
 
+/*
+Evolution : 
+ - API route : set a .env files to avoid the full writen API route in source code and to get a better handle of environnement url
+ - Handle error : there is almost no handler for error in all the source code, but adding a handler will not be difficult (just missing some time to do it)
+                  Will go for a useState propagated to all component like inError that say if coffeeMachine got an error and tell why.
+ - API call : here application make an API Call eveyry 5 seconds, a better way is to set a websocket to subscribe to back-end in order to get every update state and value everytime maybe ?
+*/
 function App() {
   //First state for loading land page
   const [isLoading, setIsLoading] = useState(true);
