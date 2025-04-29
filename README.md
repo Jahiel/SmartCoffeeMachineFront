@@ -6,7 +6,7 @@ This is the frontend interface for controlling a connected coffee machine. Built
 
 ### Video presentation
 
-[Presentation Video](./src/assets/2025-04-29%2012-03-14.mp4)
+https://github.com/user-attachments/assets/516b33dd-fad1-410e-9b1b-c06eebc06c2e
 
 ### No alert mode
 
