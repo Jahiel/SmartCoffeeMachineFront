@@ -11,6 +11,7 @@ interface WaterLevelProps {
 export default function WaterLevel(props: WaterLevelProps) {
   const startColor = blue[400]; // cornflowerblue
   const endColor = blue[400];
+  /// Default value is displayed if the API does not answer
   const [value, setValue] = useState(100);
   const radius = 200;
   const interpolate = interpolateRgb(startColor, endColor);

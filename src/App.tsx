@@ -19,6 +19,7 @@ function App() {
   //First state for loading land page
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  ///Default value are displayed if the api does not answer
   const [state, setState] = useState({
     isOn: false,
     waterLevelState: 0,
